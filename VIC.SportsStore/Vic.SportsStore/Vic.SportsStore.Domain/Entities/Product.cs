@@ -14,7 +14,7 @@ namespace Vic.SportsStore.Domain.Entities
 
         public string Description { get; set; }
 
-        public string Catelogue { get; set; }
+        public string Category { get; set; }
 
     }
 }
