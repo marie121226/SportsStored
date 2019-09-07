@@ -33,9 +33,10 @@ namespace Vic.SportsStore.WebApp
 
             //*** its the same way , we can use mock or Instantiation**//
 
-            builder.RegisterInstance<IProductsRepository>(new InMemoryProductsRepository())
+            builder.RegisterInstance<IProductsRepository>(new EFProductRepository())
             .PropertiesAutowired();//Properties injection
-
+            builder.RegisterInstance<EFDbContext>(new EFDbContext())
+            .PropertiesAutowired();//Properties injection
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 
