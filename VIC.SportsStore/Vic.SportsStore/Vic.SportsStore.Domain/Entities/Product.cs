@@ -15,6 +15,7 @@ namespace Vic.SportsStore.Domain.Entities
         public string Description { get; set; }
 
         public string Category { get; set; }
+        //public bool IsImport { get; set; }
 
     }
 }
