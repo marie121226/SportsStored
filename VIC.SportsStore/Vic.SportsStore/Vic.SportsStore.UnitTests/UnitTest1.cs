@@ -28,7 +28,7 @@ new Product {ProductId = 5, Name = "P5"}
             controller.ProductsRepository = mock.Object;
             controller.PageSize = 3;
             // Act
-            var result = (IEnumerable<Product>)controller.List();
+            var result = (IEnumerable<Product>)controller.List("Fruit",2).Model;
             // Assert
             Product[] prodArray = result.ToArray();
             Assert.IsTrue(prodArray.Length == 2);

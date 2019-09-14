@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using Vic.SportsStore.Domain.Abstract;
+using Vic.SportsStore.Domain.Entities;
 using Vic.SportsStore.WebApp.Models;
 
 namespace Vic.SportsStore.WebApp.Controllers
@@ -8,17 +10,21 @@ namespace Vic.SportsStore.WebApp.Controllers
     public class ProductController : Controller
     {
 
-        public int PageSize = 2;
+        public int PageSize = 5;
         // GET: Product
         //****Property injection
         public IProductsRepository ProductsRepository { get; set; }
-
-        public ViewResult List(int page = 1)
+        //public IEnumerable<Product> List(int page)
+        //{
+        //    return ProductsRepository.Products;
+        //}
+        public ViewResult List(string Category, int page = 1)
         {
             ProductsListViewModel model = new ProductsListViewModel()
             {
                 Products = ProductsRepository
                 .Products
+                .Where(p => Category == null || p.Category == Category)
                 .OrderBy(p => p.ProductId)
                 .Skip((page - 1) * PageSize)
                 .Take(PageSize),
@@ -27,15 +33,16 @@ namespace Vic.SportsStore.WebApp.Controllers
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
                     TotalItems = ProductsRepository
-                .Products.Count()
-                }
+                .Products.Where(p => Category == null || p.Category == Category).Count()
+                },
+                CurrentCategory = Category
 
             };
             return View(model);
             //return View(ProductsRepository.Products);
             //return
             //    View(
-            //model
+            //ProductsRepository
             //.Products
             //.OrderBy(p => p.ProductId)
             //.Skip((page - 1) * PageSize)
