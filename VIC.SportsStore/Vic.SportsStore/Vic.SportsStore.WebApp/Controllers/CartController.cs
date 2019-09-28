@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Vic.SportsStore.Domain.Abstract;
+using Vic.SportsStore.Domain.Concrete;
 using Vic.SportsStore.Domain.Entities;
 using Vic.SportsStore.WebApp.Models;
 
@@ -13,9 +14,11 @@ namespace Vic.SportsStore.WebApp.Controllers
     {
         // GET: Cart
         private IProductsRepository repository;
-        public CartController(IProductsRepository repo)
+        private IOrderProcessor orderProcessor;
+        public CartController(IProductsRepository repo, IOrderProcessor proc)
         {
             repository = repo;
+            orderProcessor = proc;
         }
         public ViewResult Index(Cart cart, string returnUrl)
         {
@@ -54,5 +57,24 @@ namespace Vic.SportsStore.WebApp.Controllers
             return View(new ShippingDetails());
         }
 
+        [HttpPost]
+        public ViewResult Checkout(Cart cart, ShippingDetails shippingDetails)
+        {
+            if (cart.Lines.Count() == 0)
+            {
+                ModelState.AddModelError("", "Sorry, your cart is empty!");
+            }
+            if (ModelState.IsValid)
+            {
+               
+                orderProcessor.ProcessOrder(cart, shippingDetails);
+                cart.Clear();
+                return View("Completed");
+            }
+            else
+            {
+                return View(shippingDetails);
+            }
+        }
     }
 }
