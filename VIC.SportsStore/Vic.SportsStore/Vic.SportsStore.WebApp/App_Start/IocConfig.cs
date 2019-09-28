@@ -37,6 +37,8 @@ namespace Vic.SportsStore.WebApp
             .PropertiesAutowired();//Properties injection
             builder.RegisterInstance<EFDbContext>(new EFDbContext())
             .PropertiesAutowired();//Properties injection
+            builder.RegisterInstance<IOrderProcessor>(new EmailOrderProcessor(new EmailSettings() ))
+           .PropertiesAutowired();
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 
