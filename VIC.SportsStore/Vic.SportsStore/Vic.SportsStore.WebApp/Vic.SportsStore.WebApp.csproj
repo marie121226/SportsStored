@@ -143,6 +143,7 @@
     </Compile>
     <Compile Include="App_Start\IocConfig.cs" />
     <Compile Include="HTMLHelper\PagingHelper.cs" />
+    <Compile Include="Infrastructure\Binders\Binders.cs" />
     <Compile Include="Models\CartIndexViewModel.cs" />
     <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="Models\ProductsListViewModel.cs" />
