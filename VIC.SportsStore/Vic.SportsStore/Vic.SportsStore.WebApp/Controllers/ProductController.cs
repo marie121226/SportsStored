@@ -38,6 +38,7 @@ namespace Vic.SportsStore.WebApp.Controllers
                 CurrentCategory = Category
 
             };
+
             return View(model);
             //return View(ProductsRepository.Products);
             //return
