@@ -16,7 +16,8 @@ namespace Vic.SportsStore.Domain.Concrete
         {
             get
             {
-                return Context.Products.AsNoTracking();
+                //return Context.Products.AsNoTracking();
+                return Context.Products;
             }
         }
         public void SaveProduct(Product product)
@@ -34,6 +35,8 @@ namespace Vic.SportsStore.Domain.Concrete
                     dbEntry.Description = product.Description;
                     dbEntry.Price = product.Price;
                     dbEntry.Category = product.Category;
+                    dbEntry.ImageData = product.ImageData;
+                    dbEntry.ImageMimeType = product.ImageMimeType;
                 }
             }
             Context.SaveChanges();
