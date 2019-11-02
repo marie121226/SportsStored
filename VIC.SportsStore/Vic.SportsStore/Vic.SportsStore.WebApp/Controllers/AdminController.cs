@@ -7,6 +7,7 @@ using Vic.SportsStore.WebApp.Models;
 
 namespace Vic.SportsStore.WebApp.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         private IProductsRepository repository;
