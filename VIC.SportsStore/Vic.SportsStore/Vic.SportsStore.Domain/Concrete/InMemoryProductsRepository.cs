@@ -25,7 +25,12 @@ namespace Vic.SportsStore.Domain.Concrete
 
             }
         }
+
         public void SaveProduct(Product product) { }
+        public Product DeleteProduct(int productId)
+        {
+            return new Product();
+        }
     }
 }
        
